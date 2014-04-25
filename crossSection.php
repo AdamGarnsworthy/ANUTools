@@ -48,7 +48,7 @@
 </form>
 </div>
 
-<?
+<?php
 // If submit has been clicked, proceed
 $subbed = False;
 $transitionEnergy = 0.0;
