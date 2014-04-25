@@ -1,0 +1,61 @@
+*, *:before, *:after {
+    -webkit-box-sizing: border-box; /* Needed for mobile WebKit */
+    -moz-box-sizing: border-box; /* Needed for Firefox */
+    box-sizing: border-box
+}
+
+.container {
+  background: #fff;
+  color: #000;
+  
+  width: 95%;
+  position: absolute;
+  top: 10%;
+  left: 2.5%;
+
+  font-family: Verdana, Helvetica, Arial, sans-serif
+
+}
+
+
+.optionsBox {
+  border: .2em solid;
+  border-radius: 0.5em 0.5em;
+  
+  display: block;  
+  position: absolute;
+  width: 25%;
+  left: 5%;
+  padding: .5em
+}
+
+.infoBox {
+  border: .2em solid;
+  border-radius: 0.5em 0.5em;
+  
+  display: block;  
+  position: absolute;
+  width: 60%;
+  right: 5%;
+  padding: .5em
+}
+
+label, input {
+    display: inline-block;
+}
+
+label {
+    width: 60%;
+    text-align: right;
+}
+
+label + input {
+    width: 20%;
+    margin: 0 10% 0 4%;
+    
+}
+
+input + input {
+    float: right;
+}
+
