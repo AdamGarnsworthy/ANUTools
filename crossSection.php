@@ -88,11 +88,14 @@ if ($subbed && $transitionEnergy > 1.022) {
   $cSectMaxAngleLocation = 0;
   $cSectMaxAngleFound = False;  
   $cSectMaxArray = array();
+
+  $integratedCrossSection = 0;
   // Loop through positron energy & separation angle to get the cross section value
   while ($positronKinetic <= $maxPositronEnergy) {
     $cSectionArray = array();
     for ($angleNb=0; $angleNb<=$cNoBinsY; $angleNb++) {
 	    $cSection = GetBornCrossSection($fieldType, $transitionEnergy, $polarityOrder, $positronKinetic, $electronKinetic, $angleNb * $maxSeparationAngle/$cNoBinsY) ;	 
+      $integratedCrossSection += $cSection;
       $outstring = strval($positronKinetic) . " " . strval($angleNb * $maxSeparationAngle/$cNoBinsY) . " " . strval($cSection) . "\n";
       fwrite($output,$outstring);
       // Store the cross section in a temporary array
@@ -120,7 +123,8 @@ if ($subbed && $transitionEnergy > 1.022) {
     $positronKinetic = $positronKinetic + (($maxPositronEnergy - $minPositronEnergy)/$cNoBinsX) ; 
     $electronKinetic = $maxPositronEnergy - $positronKinetic ;
   }
-
+  
+  $integratedCrossSection = round($integratedCrossSection,2);
   // Close output
   fclose($output);
 
@@ -148,6 +152,7 @@ if ($subbed && $transitionEnergy > 1.022) {
   fwrite($plot, "set arrow from $minPositronEnergy,$cSectMaxAngleLocation to $maxPositronEnergy,$cSectMaxAngleLocation nohead front ls 1\n");
   fwrite($plot, "set label 1 '$xLabel MeV' at graph $xLabelLocation, 0.98 front textcolor rgb 'black' rotate by -90 left font 'Verdana,10'\n");
   fwrite($plot, "set label 2 '$yLabel Degrees' at graph 0.01, $yLabelLocation front textcolor rgb 'black' font 'Verdana,10'\n");
+  fwrite($plot, "set label 3 'Integral: $integratedCrossSection' at graph 0.01, 0.95 front textcolor rgb 'black' font 'Verdana,10'\n");
   fwrite($plot, "set term pngcairo enhanced dashed crop\n");
   fwrite($plot, "set output 'crossSection.png'\n");
   fwrite($plot, "replot\n");
